@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public GameObject bulletPrefab;
-    public float shootingInterval = 0.1f;
+    public GameObject bulletPrefabs;
+    public float shootingInterval = 0.2f;
+    public Vector3 bulletOffset = new Vector3(0, 0.5f, 0);
 
     private float lastBulletTime;
 
@@ -11,21 +12,25 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (Time.time - lastBulletTime > shootingInterval)
-            {
-                ShootBullet();
-                lastBulletTime = Time.time;
-            }
+            UpdateFiring();
+        }
+    }
+
+    void UpdateFiring()
+    {
+        if (Time.time - lastBulletTime > shootingInterval)
+        {
+            ShootBullet();
+            lastBulletTime = Time.time;
         }
     }
 
     void ShootBullet()
     {
         Instantiate(
-            bulletPrefab,
-            transform.position,
+            bulletPrefabs,
+            transform.position + bulletOffset,
             transform.rotation
         );
     }
 }
-
