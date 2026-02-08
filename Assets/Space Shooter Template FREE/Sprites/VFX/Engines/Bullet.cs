@@ -6,8 +6,15 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        var newPosition = transform.position;
-        newPosition.y += Time.deltaTime * flySpeed;
-        transform.position = newPosition;
+        transform.Translate(Vector3.up * flySpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<EnemyHealth>() != null)
+        {
+            Debug.Log("Bullet hit enemy");
+            Destroy(gameObject);
+        }
     }
 }
