@@ -8,6 +8,13 @@ public class PlayerShooting : MonoBehaviour
 
     private float lastBulletTime;
 
+    private AudioSource audioSource;   // <-- thêm
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();   // <-- thêm
+    }
+
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -32,5 +39,10 @@ public class PlayerShooting : MonoBehaviour
             transform.position + bulletOffset,
             transform.rotation
         );
+
+        if (audioSource != null)      
+        {
+            audioSource.Play();       
+        }
     }
 }
